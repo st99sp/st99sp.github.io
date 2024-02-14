@@ -3,32 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="title">Aventura de San Valentín</title>
+  <title>Aventura de San Valentín</title>
   <style>
     body {
       text-align: center;
       margin: 50px;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9e6e6; /* Color de fondo */
+      color: #800000; /* Color del texto principal */
+    }
+
+    h1 {
+      color: #e60000; /* Color del título */
+    }
+
+    #corazon {
+      width: 150px; /* Ancho de la imagen del corazón */
+      height: auto;
+      margin-top: 20px; /* Espaciado superior */
     }
 
     #pista {
-      
+      margin-top: 20px; /* Espaciado superior para las pistas */
+      padding: 10px; /* Espaciado interno */
+      border: 2px solid #e60000; /* Borde rojo */
+      background-color: #ffe6e6; /* Fondo de las pistas */
     }
+
+    button {
+      background-color: #e60000; /* Fondo del botón */
+      color: #fff; /* Color del texto del botón */
+      padding: 10px 20px; /* Espaciado interno del botón */
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #ff3333; /* Cambio de color al pasar el ratón */
+    }
+
   </style>
 </head>
 <body>
-  <h1>BIENVENIDO A LA AVENTURA DE SAN VALENTIN</h1>
+  <h1>BIENVENIDO A LA AVENTURA DE SAN VALENTÍN</h1>
   <img id="corazon" src="imagen1.jpg" alt="Corazón">
   <button onclick="empezarAventura()">Empezar</button>
   <div id="pista"></div>
 
   <script>
-    
     let paso = 1;
 
     function empezarAventura() {
-      console.log("Paso con valor"+paso);
-      if (paso == 1) {
+      console.log("Paso con valor " + paso);
+      if (paso === 1) {
         console.log("Entra");
         document.getElementById("pista").innerText = 'Paso 1: Colócate en tu puerta';
       } else if (paso === 2) {
@@ -49,11 +77,10 @@
     function mostrarResultado() {
       document.getElementById('corazon').src = 'gif1.gif';
       document.getElementById('pista').innerText = '¡Feliz San Valentín, Ana!';
-      document.getElementById('pista').style.display = 'block';
+      document.getElementById('pista').style.backgroundColor = '#ffcccc'; /* Cambia el fondo de las pistas en el resultado final */
       document.querySelector('button').style.display = 'none';
       document.querySelector('title').style.display = 'none';
     }
-    
   </script>
 </body>
 </html>
