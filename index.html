@@ -23,13 +23,14 @@
   <div id="pista"></div>
 
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
     let paso = 1;
 
     function empezarAventura() {
       console.log("Paso con valor"+paso);
       if (paso == 1) {
         console.log("Entra")
-        document.getElementById('pista').innerText = 'Paso 1: Colócate en tu puerta';
+        document.getElementById("pista").innerText = 'Paso 1: Colócate en tu puerta';
       } else if (paso === 2) {
         document.getElementById('pista').innerText = "Paso 2: Da un paso hacia delante y colócate en el centro del pasillo";
       } else if (paso === 3) {
@@ -51,6 +52,7 @@
       document.getElementById('pista').style.display = 'block';
       document.querySelector('button').style.display = 'none';
     }
+    });
   </script>
 </body>
 </html>
