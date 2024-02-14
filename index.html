@@ -42,6 +42,25 @@
     button:hover {
       background-color: #ff3333; /* Cambio de color al pasar el ratón */
     }
+        #calculo-amor {
+      display: none;
+      margin-top: 20px;
+    }
+
+    #progreso {
+      width: 0;
+      height: 20px;
+      background-color: #e60000; /* Color de fondo de la barra de progreso */
+      margin-top: 10px;
+      text-align: center;
+      color: #fff; /* Color del texto de la barra de progreso */
+      line-height: 20px;
+    }
+
+    #mensaje-amor {
+      display: none;
+      margin-top: 20px;
+    }
 
   </style>
 </head>
@@ -50,6 +69,12 @@
   <img id="corazon" src="imagen1.jpg" alt="Corazón">
   <button onclick="empezarAventura()">Empezar</button>
   <div id="pista"></div>
+  <div id="calculo-amor">
+    <button onclick="calcularAmor()">Calcular amor de Stephan por Anita</button>
+    <div id="progreso">0%</div>
+    <div id="mensaje-amor"></div>
+  </div>
+
 
   <script>
     let paso = 1;
@@ -80,6 +105,29 @@
       document.getElementById('pista').style.backgroundColor = '#ffcccc'; /* Cambia el fondo de las pistas en el resultado final */
       document.querySelector('button').style.display = 'none';
       document.querySelector('title').style.display = 'none';
+      document.getElementById('calculo-amor').style.display = 'block';
+
+    }
+    function calcularAmor() {
+      let porcentaje = 0;
+      const progreso = document.getElementById('progreso');
+      const mensajeAmor = document.getElementById('mensaje-amor');
+
+      // Simula un progreso durante 5 segundos
+      const interval = setInterval(function() {
+        porcentaje += 10;
+        progreso.style.width = porcentaje + '%';
+        progreso.innerText = porcentaje + '%';
+
+        if (porcentaje >= 100) {
+          clearInterval(interval);
+
+          // Muestra el mensaje de amor y las fotos
+          mensajeAmor.innerText = 'Stephan te ama tanto como estrellas en el universo y tanto como granitos de arena';
+          mensajeAmor.style.display = 'block';
+        }
+      }, 1000);
+
     }
   </script>
 </body>
