@@ -4,6 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Propuesta de Matrimonio</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    button {
+      font-size: 16px;
+      margin-top: 20px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
@@ -12,20 +36,20 @@
   <button id="siButton" onclick="responderSi()">Sí</button>
   <button id="noButton" onclick="responderNo()">No</button>
 
-  <script ></script>
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
   <script>
     function responderSi() {
       // Lógica para responder Sí
       alert('¡Felicidades! Has elegido Sí.');
 
-      // Mostrar dos GIFs
+      // Mostrar dos GIFs de tamaño normal
       var img1 = document.createElement('img');
-      img1.src = '45ba9330-1440-4f2d-bf0d-740914ff0eaf.gif';
+      img1.src = 'd0c1d0cf-938e-403b-ae89-bdc9f0ecf461.gif';
       img1.alt = 'Propuesta de Matrimonio';
       document.body.appendChild(img1);
 
       var img2 = document.createElement('img');
-      img2.src = '7bde94ef-2a05-4077-a27b-72aabd6f6912..gif';
+      img2.src = 'd0c1d0cf-938e-403b-ae89-bdc9f0ecf461.gif';
       img2.alt = 'Propuesta de Matrimonio';
       document.body.appendChild(img2);
     }
@@ -38,12 +62,12 @@
       var nuevoBoton = document.createElement('button');
       nuevoBoton.innerText = 'Otra opción';
       nuevoBoton.onclick = function() {
-        alert('Has elegido otra opción.');
+        alert('¡Sorpresa! Nos casamos igual, nena <3');
         // Puedes agregar lógica adicional aquí si es necesario
 
         // Mostrar otro GIF al hacer clic en el nuevo botón
         var imgNuevo = document.createElement('img');
-        imgNuevo.src = '38e8b390-6fcc-4565-a98a-a60d1390923c.gif';  // Reemplaza con la URL de tu nuevo GIF
+        imgNuevo.src = 'otro_gif.gif';  // Reemplaza con la URL de tu nuevo GIF
         imgNuevo.alt = 'Nuevo GIF';
         document.body.appendChild(imgNuevo);
       };
