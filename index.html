@@ -3,143 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="title">Aventura de San Valentín</title>
-  <style>
-    body {
-      text-align: center;
-      margin: 50px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f9e6e6; /* Color de fondo */
-      color: #800000; /* Color del texto principal */
-    }
-        #imagen1, #imagen2 {
-      width: 150px; /* Tamaño de las imágenes */
-      height: auto;
-      margin-top: 10px; /* Espaciado superior entre las imágenes */
-    }
-
-    h1 {
-      color: #e60000; /* Color del título */
-    }
-
-    #corazon {
-      width: 150px; /* Ancho de la imagen del corazón */
-      height: auto;
-      margin-top: 20px; /* Espaciado superior */
-    }
-
-    #pista {
-      margin-top: 20px; /* Espaciado superior para las pistas */
-      padding: 10px; /* Espaciado interno */
-      border: 2px solid #e60000; /* Borde rojo */
-      background-color: #ffe6e6; /* Fondo de las pistas */
-    }
-
-    button {
-      background-color: #e60000; /* Fondo del botón */
-      color: #fff; /* Color del texto del botón */
-      padding: 10px 20px; /* Espaciado interno del botón */
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    button:hover {
-      background-color: #ff3333; /* Cambio de color al pasar el ratón */
-    }
-        #calculo-amor {
-      display: none;
-      margin-top: 20px;
-    }
-
-    #progreso {
-      width: 0;
-      height: 20px;
-      background-color: #e60000; /* Color de fondo de la barra de progreso */
-      margin-top: 10px;
-      text-align: center;
-      color: #fff; /* Color del texto de la barra de progreso */
-      line-height: 20px;
-    }
-
-    #mensaje-amor {
-      display: none;
-      margin-top: 20px;
-    }
-
-  </style>
+  <title>Propuesta de Matrimonio</title>
 </head>
 <body>
-  <h1>BIENVENIDO A LA AVENTURA DE SAN VALENTÍN</h1>
-  <img id="corazon" src="imagen3.jpg" alt="Corazón">
-  <button onclick="empezarAventura()">Empezar</button>
-  <div id="pista"></div>
-  <div id="calculo-amor">
-    <button onclick="calcularAmor()">Calcular amor de Stephan por Anita</button>
-    <div id="progreso">0%</div>
-    <div id="mensaje-amor"></div>
-    <img id="imagen1" src="imagen1.jpg" alt="Imagen 1">
-    <img id="imagen2" src="imagen2.jpg" alt="Imagen 2">
-  </div>
 
+  <img src="tu_gif_url_aquí" alt="Propuesta de Matrimonio">
+  <p>¿Quieres casarte conmigo?</p>
+  <button id="siButton" onclick="enviarCorreos()">Sí</button>
+  <button id="noButton" onclick="responderNo()">No</button>
 
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
   <script>
-    let paso = 1;
-
-    function empezarAventura() {
-      console.log("Paso con valor " + paso);
-      if (paso === 1) {
-        console.log("Entra");
-        document.getElementById("pista").innerText = 'Paso 1: Colócate en tu puerta';
-      } else if (paso === 2) {
-        document.getElementById('pista').innerText = "Paso 2: Da un paso hacia delante y colócate en el centro del pasillo";
-      } else if (paso === 3) {
-        document.getElementById('pista').innerText = 'Paso 3: Cierra los ojos y da 12 pasos';
-      } else if (paso === 4) {
-        document.getElementById('pista').innerText = 'Paso 4: Mira a tu derecha';
-      } else if (paso === 5) {
-        mostrarResultado();
-        return;  // Terminar la función después del último paso
-      }
-
-      document.querySelector('button').innerText = 'Siguiente'; // Cambia el texto del botón a "Siguiente"
-      paso++;
+    function enviarCorreos() {
+      enviarCorreo('spmsevilla@gmail.com', 'Casamiento completado', 'Felicidades Ana ha aceptado la boda.');
+      enviarCorreo('stephanperez999@gmail.com', 'Gracias por suscribirte', 'Buenas noches Ana,\nGracias por suscribirte de por vida al servicio de enamoramiento y paz continua con Stephan. Esperamos que disfrute al máximo de su suscripción.\nPd: no es cancelable desgraciadamente esta suscripción.\nMuchas gracias, un saludo.');
     }
 
-    function mostrarResultado() {
-      document.getElementById('corazon').src = 'gif1.gif';
-      document.getElementById('pista').innerText = '¡Feliz San Valentín, Ana!';
-      document.getElementById('pista').style.backgroundColor = '#ffcccc'; /* Cambia el fondo de las pistas en el resultado final */
-      document.querySelector('button').style.display = 'none';
-      document.querySelector('title').style.display = 'none';
-      document.getElementById('calculo-amor').style.display = 'block';
-
+    function enviarCorreo(email, asunto, cuerpoMensaje) {
+      Email.send({
+        Host: "smtp.gmail.com",
+        Username: "spmsevilla@gmail.com",
+        Password: "@Sevillin999",
+        To: email,
+        From: "spmsevilla@gmail.com",
+        Subject: asunto,
+        Body: cuerpoMensaje
+      }).then(
+        message => console.log('Correo enviado a ' + email + '\nAsunto: ' + asunto + '\nCuerpo de mensaje: ' + cuerpoMensaje)
+      );
     }
-    function calcularAmor() {
-      let porcentaje = 0;
-      const progreso = document.getElementById('progreso');
-      const mensajeAmor = document.getElementById('mensaje-amor');
-            const imagen1 = document.getElementById('imagen1');
-      const imagen2 = document.getElementById('imagen2');
 
-      // Simula un progreso durante 5 segundos
-      const interval = setInterval(function() {
-        porcentaje += 10;
-        progreso.style.width = porcentaje + '%';
-        progreso.innerText = porcentaje + '%';
-
-        if (porcentaje >= 100) {
-          clearInterval(interval);
-
-          // Muestra el mensaje de amor y las fotos
-          mensajeAmor.innerText = 'Stephan te ama tanto como estrellas en el universo y tanto como granitos de arena';
-          mensajeAmor.style.display = 'block';
-          imagen1.style.display = 'block';
-          imagen2.style.display = 'block';
-        }
-      }, 1000);
-
+    function responderNo() {
+      // Lógica para responder No
+      alert('Gracias por tu respuesta. Has elegido No.');
+      // Clonar el botón "Sí"
+      var botonSi = document.getElementById('siButton');
+      var botonNo = document.getElementById('noButton');
+      botonNo.innerText = botonSi.innerText;
+      botonNo.onclick = function() {
+        enviarCorreos(); // Puedes ajustar esta lógica según tus necesidades
+      };
     }
   </script>
+
 </body>
 </html>
