@@ -9,40 +9,46 @@
 
   <img src="d0c1d0cf-938e-403b-ae89-bdc9f0ecf461.gif" alt="Propuesta de Matrimonio">
   <p>¿Quieres casarte conmigo?</p>
-  <button id="siButton" onclick="enviarCorreos()">Sí</button>
+  <button id="siButton" onclick="responderSi()">Sí</button>
   <button id="noButton" onclick="responderNo()">No</button>
 
-  <script src="https://smtpjs.com/v3/smtp.js"></script>
+  <script ></script>
   <script>
-    function enviarCorreos() {
-      enviarCorreo('spmsevilla@gmail.com', 'Casamiento completado', 'Felicidades Ana ha aceptado la boda.');
-      enviarCorreo('stephanperez999@gmail.com', 'Gracias por suscribirte', 'Buenas noches Ana,\nGracias por suscribirte de por vida al servicio de enamoramiento y paz continua con Stephan. Esperamos que disfrute al máximo de su suscripción.\nPd: no es cancelable desgraciadamente esta suscripción.\nMuchas gracias, un saludo.');
-    }
+    function responderSi() {
+      // Lógica para responder Sí
+      alert('¡Felicidades! Has elegido Sí.');
 
-    function enviarCorreo(email, asunto, cuerpoMensaje) {
-      Email.send({
-        Host: "smtp.gmail.com",
-        Username: "spmsevilla@gmail.com",
-        Password: "@Sevillin999",
-        To: email,
-        From: "spmsevilla@gmail.com",
-        Subject: asunto,
-        Body: cuerpoMensaje
-      }).then(
-        message => console.log('Correo enviado a ' + email + '\nAsunto: ' + asunto + '\nCuerpo de mensaje: ' + cuerpoMensaje)
-      );
+      // Mostrar dos GIFs
+      var img1 = document.createElement('img');
+      img1.src = '45ba9330-1440-4f2d-bf0d-740914ff0eaf.gif';
+      img1.alt = 'Propuesta de Matrimonio';
+      document.body.appendChild(img1);
+
+      var img2 = document.createElement('img');
+      img2.src = '7bde94ef-2a05-4077-a27b-72aabd6f6912..gif';
+      img2.alt = 'Propuesta de Matrimonio';
+      document.body.appendChild(img2);
     }
 
     function responderNo() {
       // Lógica para responder No
       alert('Gracias por tu respuesta. Has elegido No.');
-      // Clonar el botón "Sí"
-      var botonSi = document.getElementById('siButton');
-      var botonNo = document.getElementById('noButton');
-      botonNo.innerText = botonSi.innerText;
-      botonNo.onclick = function() {
-        enviarCorreos(); // Puedes ajustar esta lógica según tus necesidades
+
+      // Añadir otro botón con un nuevo GIF
+      var nuevoBoton = document.createElement('button');
+      nuevoBoton.innerText = 'Otra opción';
+      nuevoBoton.onclick = function() {
+        alert('Has elegido otra opción.');
+        // Puedes agregar lógica adicional aquí si es necesario
+
+        // Mostrar otro GIF al hacer clic en el nuevo botón
+        var imgNuevo = document.createElement('img');
+        imgNuevo.src = '38e8b390-6fcc-4565-a98a-a60d1390923c.gif';  // Reemplaza con la URL de tu nuevo GIF
+        imgNuevo.alt = 'Nuevo GIF';
+        document.body.appendChild(imgNuevo);
       };
+
+      document.body.appendChild(nuevoBoton);
     }
   </script>
 
