@@ -1,82 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Propuesta de Matrimonio</title>
-  <style>
-    body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-top: 20px;
-    }
-
-    p {
-      font-size: 18px;
-      margin-top: 20px;
-    }
-
-    button {
-      font-size: 16px;
-      margin-top: 20px;
-      padding: 10px 20px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santo y Ruleta de Premios</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <img src="d0c1d0cf-938e-403b-ae89-bdc9f0ecf461.gif" alt="Propuesta de Matrimonio">
-  <p>¿Quieres casarte conmigo?</p>
-  <button id="siButton" onclick="responderSi()">Sí</button>
-  <button id="noButton" onclick="responderNo()">No</button>
-
-  <script src="https://smtpjs.com/v3/smtp.js"></script>
-  <script>
-    function responderSi() {
-      // Lógica para responder Sí
-      alert('¡Felicidades! Has elegido Sí.');
-
-      // Mostrar dos GIFs de tamaño normal
-      var img1 = document.createElement('img');
-      img1.src = '45ba9330-1440-4f2d-bf0d-740914ff0eaf.gif';
-      img1.alt = 'Propuesta de Matrimonio';
-      document.body.appendChild(img1);
-
-      var img2 = document.createElement('img');
-      img2.src = '7bde94ef-2a05-4077-a27b-72aabd6f6912..gif';
-      img2.alt = 'Propuesta de Matrimonio';
-      document.body.appendChild(img2);
-	  alert('Mira tu correo para más detalles.');
-    }
-
-    function responderNo() {
-      // Lógica para responder No
-      alert('Gracias por tu respuesta. Has elegido No.');
-
-      // Añadir otro botón con un nuevo GIF
-      var nuevoBoton = document.createElement('button');
-      nuevoBoton.innerText = 'Otra opción';
-      nuevoBoton.onclick = function() {
-        alert('¡Sorpresa! Nos casamos igual, nena <3');
-        // Puedes agregar lógica adicional aquí si es necesario
-
-        // Mostrar otro GIF al hacer clic en el nuevo botón
-        var imgNuevo = document.createElement('img');
-        imgNuevo.src = '38e8b390-6fcc-4565-a98a-a60d1390923c.gif';  // Reemplaza con la URL de tu nuevo GIF
-        imgNuevo.alt = 'Nuevo GIF';
-        document.body.appendChild(imgNuevo);
-		alert('Mira tu correo para más detalles.');
-      };
-
-      document.body.appendChild(nuevoBoton);
-    }
-  </script>
-
+    <div class="container">
+        <h1>¿Es tu santo?</h1>
+        <input type="date" id="santo-date">
+        <button onclick="checkSanto()">Comprobar</button>
+        <div id="felicitacion" class="hidden">
+            <h2>¡Enhorabuena! Hoy es el santo de Ana. ¡Felicidades!</h2>
+            <div id="ruleta-container">
+                <div class="flecha"></div>
+                <canvas id="ruleta" width="500" height="500"></canvas>
+                <button onclick="girarRuleta()" id="rule">Girar la ruleta</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
