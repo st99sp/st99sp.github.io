@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santo y Ruleta de Premios</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>¿Es tu santo?</h1>
+        <input type="date" id="santo-date">
+        <button onclick="checkSanto()">Comprobar</button>
+        <div id="felicitacion" class="hidden">
+            <h2>¡Enhorabuena! Hoy es el santo de Ana. ¡Felicidades!</h2>
+            <div id="ruleta-container">
+                <div class="flecha"></div>
+                <canvas id="ruleta" width="500" height="500"></canvas>
+                <button onclick="girarRuleta()" id="rule">Girar la ruleta</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

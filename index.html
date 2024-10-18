@@ -1,25 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santo y Ruleta de Premios</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Cumpleaños Papá</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h1>¿Es tu santo?</h1>
-        <input type="date" id="santo-date">
-        <button onclick="checkSanto()">Comprobar</button>
-        <div id="felicitacion" class="hidden">
-            <h2>¡Enhorabuena! Hoy es el santo de Ana. ¡Felicidades!</h2>
-            <div id="ruleta-container">
-                <div class="flecha"></div>
-                <canvas id="ruleta" width="500" height="500"></canvas>
-                <button onclick="girarRuleta()" id="rule">Girar la ruleta</button>
-            </div>
-        </div>
-    </div>
-    <script src="script.js"></script>
+  <h1>¡Feliz Cumpleaños, Papá!</h1>
+
+  <!-- Primer acertijo -->
+  <div id="riddle1">
+    <p>Acertijo 1: Un hombre salió a caminar un lunes, caminó 10 km al sur, 10 km al oeste y 10 km al norte. Al llegar al mismo punto de partida, se encontró con un oso. ¿De qué color es el oso?</p>
+    <input type="text" id="answer1" placeholder="Escribe tu respuesta(color en minuscula)">
+    <button onclick="checkAnswer1()">Responder</button>
+    <div id="hint1" class="hidden">Pista: Piensa en dónde vive el oso.</div>
+  </div>
+
+  <!-- Primer regalo -->
+  <div id="gift1" class="hidden">
+    <p>¡Correcto! Aquí está la foto de tu primer regalo.</p>
+    <img src="regalo1.jpg" alt="Primer regalo">
+    <p>Escanea el código QR o utiliza NFC para obtener su ubicación.</p>
+    <img src="qr1.png" alt="Código QR">
+    <button onclick="showRiddle2()">Siguiente acertijo</button>
+  </div>
+
+  <!-- Segundo acertijo -->
+  <div id="riddle2" class="hidden">
+    <p>Acertijo 2: Dos padres y dos hijos fueron a pescar, y cada uno pescó un pez, pero solo trajeron tres peces. ¿Cómo es posible?</p>
+    <input type="text" id="answer2" placeholder="Escribe tu respuesta :">
+    <button onclick="checkAnswer2()">Responder</button>
+  </div>
+
+  <!-- Segundo regalo -->
+  <div id="gift2" class="hidden">
+    <p>¡Has acertado de nuevo! Escucha la canción mientras aparece la pista del segundo regalo.</p>
+    <audio controls>
+      <source src="cancion.mp4" type="audio/mpeg">
+      Tu navegador no soporta la reproducción de audio.
+    </audio>
+    <img src="regalo2.jpg" alt="Segundo regalo">
+    <img src="gifi.gif" alt="gif">
+    
+  </div>
+
+  <h2 id="finalMessage" class="hidden">¡FELICIDADES PAPÁ!</h2>
 </body>
 </html>
