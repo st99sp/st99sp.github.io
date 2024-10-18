@@ -22,6 +22,9 @@ function checkAnswer1() {
       document.getElementById("gift2").classList.remove("hidden");
       document.getElementById("riddle2").classList.add("hidden");
       document.getElementById("finalMessage").classList.remove("hidden");
+	  // Reproducir la canción automáticamente
+      const audio = document.querySelector('audio');
+      audio.play();
     } else {
       alert("Respuesta incorrecta, ¡intenta de nuevo!");
     }
