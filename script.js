@@ -18,7 +18,7 @@ function checkAnswer1() {
   // Verificar el segundo acertijo
   function checkAnswer2() {
     const answer2 = document.getElementById("answer2").value.toLowerCase();
-    if (answer2 === "eran abuelo, padre e hijo") {
+    if (answer2.includes("abuelo") && answer2.includes("padre") && answer2.includes("hijo")) {
       document.getElementById("gift2").classList.remove("hidden");
       document.getElementById("riddle2").classList.add("hidden");
       document.getElementById("finalMessage").classList.remove("hidden");
