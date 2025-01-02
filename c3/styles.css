@@ -1,0 +1,69 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: aquamarine;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  h1 {
+    color: #ff6b6b;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  img {
+    max-width: 30%; /* Limita el tamaño de las imágenes al 80% del ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    margin-top: 20px;
+  }
+  
+  audio {
+    margin-top: 20px;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .hiddenLink {
+    height: 100px;
+    width: 100%;
+    background-color: #f4f4f4; /* El fondo coincide con el color de la página */
+    cursor: pointer;
+  }
+  
+  .hiddenLink:hover a {
+    color: #4caf50; /* El enlace aparece en verde al pasar el ratón */
+    visibility: visible;
+  }
+  
+  .hiddenLink a {
+    visibility: hidden;
+    font-size: 20px;
+    text-decoration: none;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
