@@ -8,17 +8,29 @@
         body {
             margin: 0;
             padding: 0;
-            background: url('foto1.jpg') repeat, url('foto2.jpg') repeat, url('foto3.jpg') repeat, 
-                        url('foto4.jpg') repeat, url('foto5.jpg') repeat, url('foto6.jpg') repeat, 
-                        url('foto7.jpg') repeat, url('foto8.jpg') repeat, url('foto9.jpg') repeat, 
-                        url('foto10.jpg') repeat;
-            background-size: cover;
+            overflow: hidden;
+        }
+        #background {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .bg-image {
+            width: 20%;
+            height: 20vh;
+            object-fit: cover;
+        }
+        #content {
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
             text-align: center;
+            z-index: 10;
         }
         #hiddenImage {
             display: none;
@@ -30,9 +42,22 @@
     </style>
 </head>
 <body>
-    <h1>¡Feliz San Valentín! ❤️</h1>
-    <img id="hiddenImage" src="imagen_sorpresa.jpg" alt="Sorpresa">
-    <audio id="song" src="cancion.mp3"></audio>
+    <div id="background">
+        <script>
+            const images = ["foto1.jpeg", "foto2.jpeg", "foto3.jpeg", "foto4.jpeg", "foto5.jpeg", "foto6.jpeg", "foto7.jpeg", "foto8.jpeg", "foto9.jpeg", "foto10.jpeg"];
+            for (let i = 0; i < 50; i++) {
+                let img = document.createElement("img");
+                img.src = images[i % images.length];
+                img.className = "bg-image";
+                document.getElementById("background").appendChild(img);
+            }
+        </script>
+    </div>
+    <div id="content">
+        <h1>¡Feliz San Valentín! ❤️</h1>
+        <img id="hiddenImage" src="imagen_sorpresa.jpeg" alt="Sorpresa">
+        <audio id="song" src="cancion.mp3"></audio>
+    </div>
     
     <script>
         let revealed = false;
