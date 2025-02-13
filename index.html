@@ -75,6 +75,8 @@
         <h3 clas="highlighted-text">Agita tu minimovil para ver al TEAM PERFECT</h3>
         <img id="hiddenImage" src="imagen_sorpresa.jpeg" alt="Sorpresa">
         <audio id="song" src="cancion.mp3" type="audio/mpeg"></audio>
+        <button id="playButton">Reproducir música</button>
+
     </div>
     
     <script>
@@ -91,12 +93,13 @@
                     let audio = document.getElementById('song');
                     audio.play().catch(error => console.log("Error al reproducir audio: " + error));
                     revealed = true;
-                    document.getElementById("playButton").addEventListener("click", () => {
+
+
+                }
+                document.getElementById("playButton").addEventListener("click", () => {
     let audio = document.getElementById("song");
     audio.play().catch(error => console.log("Error al reproducir audio: " + error));
 });
-
-                }
             }
         });
     </script>
