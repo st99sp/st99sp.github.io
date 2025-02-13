@@ -16,7 +16,6 @@
             height: 100vh;
             display: flex;
             flex-wrap: wrap;
-            filter: blur(5px); /* Difuminar el fondo */
         }
         .bg-image {
             width: 20%;
@@ -40,10 +39,10 @@
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
             transition: all 0.5s ease-in-out;
+            filter: blur(5px); /* Inicialmente borrosa */
         }
         .revealed {
             filter: none; /* Se muestra nítida al revelarse */
-            transform: scale(1.1);
         }
     </style>
 </head>
@@ -61,6 +60,7 @@
     </div>
     <div id="content">
         <h1>¡Feliz San Valentín! ❤️</h1>
+        <h3>Agita tu minimovil para ver al TEAM PERFECT</h3>
         <img id="hiddenImage" src="imagen_sorpresa.jpeg" alt="Sorpresa">
         <audio id="song" src="cancion.mp3"></audio>
     </div>
@@ -73,7 +73,9 @@
             if (Math.abs(acceleration.x) > 15 || Math.abs(acceleration.y) > 15 || Math.abs(acceleration.z) > 15) {
                 if (!revealed) {
                     document.getElementById('hiddenImage').style.display = 'block';
-                    document.getElementById('hiddenImage').classList.add('revealed');
+                    setTimeout(() => {
+                        document.getElementById('hiddenImage').classList.add('revealed');
+                    }, 100); // Pequeño retraso para transición suave
                     document.getElementById('song').play();
                     revealed = true;
                 }
