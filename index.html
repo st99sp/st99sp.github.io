@@ -43,10 +43,18 @@
             filter: blur(5px);
         }
         .revealed {
-            filter: none;
+            filter: blur(0px);
         }
         .blurred {
             filter: blur(5px);
+        }
+        .highlighted-text {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 24px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -64,6 +72,7 @@
     </div>
     <div id="content">
         <h1>¡Feliz San Valentín! ❤️</h1>
+        <h3 clas="highlighted-text">Agita tu minimovil para ver al TEAM PERFECT</h3>
         <img id="hiddenImage" src="imagen_sorpresa.jpeg" alt="Sorpresa">
         <audio id="song" src="cancion.mp3" type="audio/mpeg"></audio>
     </div>
@@ -82,6 +91,11 @@
                     let audio = document.getElementById('song');
                     audio.play().catch(error => console.log("Error al reproducir audio: " + error));
                     revealed = true;
+                    document.getElementById("playButton").addEventListener("click", () => {
+    let audio = document.getElementById("song");
+    audio.play().catch(error => console.log("Error al reproducir audio: " + error));
+});
+
                 }
             }
         });
