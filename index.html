@@ -16,6 +16,7 @@
             height: 100vh;
             display: flex;
             flex-wrap: wrap;
+            filter: blur(5px); /* Difuminar el fondo */
         }
         .bg-image {
             width: 20%;
@@ -38,6 +39,11 @@
             max-width: 400px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            transition: all 0.5s ease-in-out;
+        }
+        .revealed {
+            filter: none; /* Se muestra nítida al revelarse */
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -67,6 +73,7 @@
             if (Math.abs(acceleration.x) > 15 || Math.abs(acceleration.y) > 15 || Math.abs(acceleration.z) > 15) {
                 if (!revealed) {
                     document.getElementById('hiddenImage').style.display = 'block';
+                    document.getElementById('hiddenImage').classList.add('revealed');
                     document.getElementById('song').play();
                     revealed = true;
                 }
