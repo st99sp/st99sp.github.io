@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regalos de Reyes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            background-image:url("reyes.jpg");
+            background-attachment: fixed;
+            background-position: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .ruleta-container {
+            position: relative;
+            display: inline-block;
+        }
+        .ruleta {
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+            border: 10px solid #ccc;
+            border-radius: 50%;
+            position: relative;
+        }
+        .ruleta div {
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            transform-origin: 100% 100%;
+            clip-path: polygon(100% 100%, 0 100%, 100% 0);
+        }
+        .verde { background: green; transform: rotate(0deg); }
+        .rojo { background: red; transform: rotate(90deg); }
+        .amarillo { background: yellow; transform: rotate(180deg); }
+        .azul { background: blue; transform: rotate(270deg); }
+        #btn-girar {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #btn-girar:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+        .qr {
+            display: none;
+            margin: 20px;
+            max-width: 30%;
+            max-height: 30%;
+        }
+        .mensaje {
+            margin: 20px;
+            font-size: 18px;
+            color: #555;
+            background-color:darkgoldenrod;
+            font-weight: 900;
+        }
+        #parraf{
+            background: blueviolet;
+            font-size:2em;
+
+        }
+        #ini{
+            background: aqua;
+            font-size:4em;
+
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="ini">¡Tus regalos de Reyes Anita!</h1>
+        <p id="parraf">Este año hemos tenido que adelantarlos por una misión muy especial: ¡hacer tus vacaciones en Granada aún más felices!</p>
+        <div class="ruleta-container">
+            <div class="ruleta">
+                <div class="verde"></div>
+                <div class="rojo"></div>
+                <div class="amarillo"></div>
+                <div class="azul"></div>
+            </div>
+        </div>
+        <button id="btn-girar">Girar Ruleta</button>
+        <div class="mensaje" id="mensaje"></div>
+        <img id="qr" class="qr" src="qr.jpg" alt="QR del regalo">
+    </div>
+
+    <script>
+        const btnGirar = document.getElementById('btn-girar');
+        const mensaje = document.getElementById('mensaje');
+        const qr = document.getElementById('qr');
+
+        const resultados = {
+            verde: "Antes de abrir el regalo, escanea este QR para ver si te gusta.",
+            rojo: "Puedes abrir el siguiente regalo físico.",
+            amarillo: "Puedes abrir el siguiente regalo físico.",
+            azul: "Este es un regalo especial y sentimental. ¡Disfrútalo! FELICES REYES MI REINA"
+        };
+
+        let paso = 0;
+
+        btnGirar.addEventListener('click', () => {
+            if (paso === 0) {
+                mostrarResultado('verde');
+                qr.style.display = 'block';
+                mensaje.textContent = `¡Color seleccionado: Verde! ${resultados.verde}`;
+                btnGirar.disabled = true;
+                setTimeout(() => btnGirar.disabled = false, 2000);
+                paso++;
+            } else if (paso === 1) {
+                qr.style.display = 'none'
+                const colores = ['amarillo'];
+                const color = colores[Math.floor(Math.random() * colores.length)];
+                mostrarResultado(color);
+                mensaje.textContent = `¡Color seleccionado: ${color.charAt(0).toUpperCase() + color.slice(1)}! ${resultados[color]}`;
+                paso++;
+
+            } else if (paso === 2) {
+                qr.style.display = 'none'
+                const colores = ['rojo'];
+                const color = colores[Math.floor(Math.random() * colores.length)];
+                mostrarResultado(color);
+                mensaje.textContent = `¡Color seleccionado: ${color.charAt(0).toUpperCase() + color.slice(1)}! ${resultados[color]}`;
+                paso++;
+                
+            }
+            else if (paso === 3) {
+                mostrarResultado('azul');
+                mensaje.textContent = `¡Color seleccionado: Azul! ${resultados.azul}`;
+                btnGirar.disabled = true;
+            }
+        });
+
+        function mostrarResultado(color) {
+            const angulos = {
+                verde: 0,
+                rojo: 90,
+                amarillo: 180,
+                azul: 270
+            };
+            const ruleta = document.querySelector('.ruleta');
+            ruleta.style.transition = 'transform 2s ease';
+            ruleta.style.transform = `rotate(${3600 + angulos[color]}deg)`;
+        }
+    </script>
+</body>
+</html>
