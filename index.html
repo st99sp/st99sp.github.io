@@ -21,6 +21,7 @@
             width: 20%;
             height: 20vh;
             object-fit: cover;
+            transition: filter 0.5s ease-in-out;
         }
         #content {
             position: relative;
@@ -38,11 +39,14 @@
             max-width: 400px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
-            transition: all 0.5s ease-in-out;
-            filter: blur(5px); /* Inicialmente borrosa */
+            transition: filter 0.5s ease-in-out;
+            filter: blur(5px);
         }
         .revealed {
-            filter: none; /* Se muestra nítida al revelarse */
+            filter: none;
+        }
+        .blurred {
+            filter: blur(5px);
         }
     </style>
 </head>
@@ -60,14 +64,12 @@
     </div>
     <div id="content">
         <h1>¡Feliz San Valentín! ❤️</h1>
-        <h3>Agita tu minimovil para ver al TEAM PERFECT</h3>
         <img id="hiddenImage" src="imagen_sorpresa.jpeg" alt="Sorpresa">
-        <audio id="song" src="cancion.mp3"></audio>
+        <audio id="song" src="cancion.mp3" type="audio/mpeg"></audio>
     </div>
     
     <script>
         let revealed = false;
-
         window.addEventListener('devicemotion', (event) => {
             let acceleration = event.accelerationIncludingGravity;
             if (Math.abs(acceleration.x) > 15 || Math.abs(acceleration.y) > 15 || Math.abs(acceleration.z) > 15) {
@@ -75,8 +77,10 @@
                     document.getElementById('hiddenImage').style.display = 'block';
                     setTimeout(() => {
                         document.getElementById('hiddenImage').classList.add('revealed');
-                    }, 100); // Pequeño retraso para transición suave
-                    document.getElementById('song').play();
+                        document.querySelectorAll('.bg-image').forEach(img => img.classList.add('blurred'));
+                    }, 100);
+                    let audio = document.getElementById('song');
+                    audio.play().catch(error => console.log("Error al reproducir audio: " + error));
                     revealed = true;
                 }
             }
