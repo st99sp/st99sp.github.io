@@ -59,7 +59,7 @@
         #playButton{
             width: 20%;
             height: 5%;
-            background-color: yellow;
+            background-color: yellowgreen;
         }
         #highs{
             background-color: rosybrown;
@@ -95,7 +95,6 @@
             if (Math.abs(acceleration.x) > 15 || Math.abs(acceleration.y) > 15 || Math.abs(acceleration.z) > 15) {
                 if (!revealed) {
                     document.getElementById('hiddenImage').style.display = 'block';
-                    document.getElementsByClassName('highlighted-text').style.display= 'none';
                     setTimeout(() => {
                         document.getElementById('hiddenImage').classList.add('revealed');
                         document.querySelectorAll('.bg-image').forEach(img => img.classList.add('blurred'));
@@ -106,7 +105,7 @@
 
 
                 }
-    document.getElementById("playButton").addEventListener("click", () => {
+                document.getElementById("playButton").addEventListener("click", () => {
     let audio = document.getElementById("song");
     audio.play().catch(error => console.log("Error al reproducir audio: " + error));
 });
