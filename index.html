@@ -1,116 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>San Valentín</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-        #background {
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .bg-image {
-            width: 20%;
-            height: 20vh;
-            object-fit: cover;
-            transition: filter 0.5s ease-in-out;
-        }
-        #content {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            text-align: center;
-            z-index: 10;
-        }
-        #hiddenImage {
-            display: none;
-            width: 80%;
-            max-width: 400px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-            transition: filter 0.5s ease-in-out;
-            /*filter: blur(5px);*/
-        }
-        .revealed {
-            filter: blur(0px);
-        }
-        .blurred {
-            filter: blur(5px);
-        }
-        .highlighted-text {
-            background-color: red;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        #playButton{
-            width: 20%;
-            height: 3%;
-            background-color: lightblue;
-        }
-        #highs{
-            background-color: rosybrown;
+  <meta charset="UTF-8">
+  <title>¡Sorpresa de PlayStation!</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0d0d0d;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      overflow: hidden;
+      flex-direction: column;
+    }
 
-        }
-    </style>
+    .container {
+      text-align: center;
+    }
+
+    .gift-box {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+      cursor: pointer;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    .lid, .box {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, #2d2dff, #5f5fff);
+      border-radius: 15px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .lid {
+      z-index: 2;
+      transition: transform 1s ease;
+    }
+
+    .open .lid {
+      transform: rotateX(100deg) translateY(-100px);
+    }
+
+    .code {
+      
+      visibility: hidden;
+      margin-top: 30px;
+      font-size: 24px;
+      background: #111;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: 2px solid #2d2dff;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
 </head>
 <body>
-    <div id="background">
-        <script>
-            const images = ["foto1.jpeg", "foto2.jpeg", "foto3.jpeg", "foto4.jpeg", "foto5.jpeg", "foto6.jpeg", "foto7.jpeg", "foto8.jpeg", "foto9.jpeg", "foto10.jpeg"];
-            for (let i = 0; i < 50; i++) {
-                let img = document.createElement("img");
-                img.src = images[i % images.length];
-                img.className = "bg-image";
-                document.getElementById("background").appendChild(img);
-            }
-        </script>
-    </div>
-    <div id="content">
-        <h1 id="highs">¡Feliz San Valentín! ❤️</h1>
-        <h3 class="highlighted-text">Agita tu minimovil para ver al TEAM PERFECT</h3>
-        <img id="hiddenImage" src="imagen_sorpresa.jpeg" alt="Sorpresa">
-        <audio id="song" src="cancion.mp3" type="audio/mpeg"></audio>
-        <button id="playButton">Reproducir música</button>
 
-    </div>
+  <div class="container">
+    <h1>Haz clic para abrir tu regalo 🎮</h1>
     
-    <script>
-        let revealed = false;
-        window.addEventListener('devicemotion', (event) => {
-            let acceleration = event.accelerationIncludingGravity;
-            if (Math.abs(acceleration.x) > 15 || Math.abs(acceleration.y) > 15 || Math.abs(acceleration.z) > 15) {
-                if (!revealed) {
-                    document.getElementById('hiddenImage').style.display = 'block';
-                    setTimeout(() => {
-                        document.getElementById('hiddenImage').classList.add('revealed');
-                        document.querySelectorAll('.bg-image').forEach(img => img.classList.add('blurred'));
-                    }, 100);
-                    let audio = document.getElementById('song');
-                    audio.play().catch(error => console.log("Error al reproducir audio: " + error));
-                    revealed = true;
+    <div class="gift-box" id="giftBox">
+      <div class="lid"></div>
+      <div class="box">
+        <img src="https://cdn-icons-gif.flaticon.com/13374/13374046.gif" style="width: 100%; height: 100%; border-radius: 15px;">
+      </div>    
+    </div>
 
+    <!-- ✅ Mueve el código fuera del gift-box -->
+    <div class="code" id="code">Código: <strong>CFJE-7DMA-AJT7</strong></div>
+  </div>
 
-                }
-                document.getElementById("playButton").addEventListener("click", () => {
-    let audio = document.getElementById("song");
-    audio.play().catch(error => console.log("Error al reproducir audio: " + error));
-});
-            }
-        });
-    </script>
+  <script>
+    const giftBox = document.getElementById('giftBox');
+    const container = document.querySelector('.container');
+    const code = document.getElementById('code');
+
+    giftBox.addEventListener('click', () => {
+      container.classList.add('open');
+
+      setTimeout(() => {
+        code.style.opacity = '1';
+        code.style.visibility = 'visible';
+
+        // Opcional: eliminar transición y limpiar propiedad después
+        setTimeout(() => {
+          code.style.transition = 'none';
+          code.style.opacity = '';
+          code.style.removeProperty('opacity');
+          code.style.removeProperty('visibility');
+        }, 1000);
+      }, 1000);
+    });
+  </script>
+
 </body>
 </html>

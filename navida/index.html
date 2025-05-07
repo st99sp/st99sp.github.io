@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Valentín</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #background {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .bg-image {
+            width: 20%;
+            height: 20vh;
+            object-fit: cover;
+            transition: filter 0.5s ease-in-out;
+        }
+        #content {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            z-index: 10;
+        }
+        #hiddenImage {
+            display: none;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            transition: filter 0.5s ease-in-out;
+            /*filter: blur(5px);*/
+        }
+        .revealed {
+            filter: blur(0px);
+        }
+        .blurred {
+            filter: blur(5px);
+        }
+        .highlighted-text {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #playButton{
+            width: 20%;
+            height: 3%;
+            background-color: lightblue;
+        }
+        #highs{
+            background-color: rosybrown;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="background">
+        <script>
+            const images = ["foto1.jpeg", "foto2.jpeg", "foto3.jpeg", "foto4.jpeg", "foto5.jpeg", "foto6.jpeg", "foto7.jpeg", "foto8.jpeg", "foto9.jpeg", "foto10.jpeg"];
+            for (let i = 0; i < 50; i++) {
+                let img = document.createElement("img");
+                img.src = images[i % images.length];
+                img.className = "bg-image";
+                document.getElementById("background").appendChild(img);
+            }
+        </script>
+    </div>
+    <div id="content">
+        <h1 id="highs">¡Feliz San Valentín! ❤️</h1>
+        <h3 class="highlighted-text">Agita tu minimovil para ver al TEAM PERFECT</h3>
+        <img id="hiddenImage" src="imagen_sorpresa.jpeg" alt="Sorpresa">
+        <audio id="song" src="cancion.mp3" type="audio/mpeg"></audio>
+        <button id="playButton">Reproducir música</button>
+
+    </div>
+    
+    <script>
+        let revealed = false;
+        window.addEventListener('devicemotion', (event) => {
+            let acceleration = event.accelerationIncludingGravity;
+            if (Math.abs(acceleration.x) > 15 || Math.abs(acceleration.y) > 15 || Math.abs(acceleration.z) > 15) {
+                if (!revealed) {
+                    document.getElementById('hiddenImage').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('hiddenImage').classList.add('revealed');
+                        document.querySelectorAll('.bg-image').forEach(img => img.classList.add('blurred'));
+                    }, 100);
+                    let audio = document.getElementById('song');
+                    audio.play().catch(error => console.log("Error al reproducir audio: " + error));
+                    revealed = true;
+
+
+                }
+                document.getElementById("playButton").addEventListener("click", () => {
+    let audio = document.getElementById("song");
+    audio.play().catch(error => console.log("Error al reproducir audio: " + error));
+});
+            }
+        });
+    </script>
+</body>
+</html>
