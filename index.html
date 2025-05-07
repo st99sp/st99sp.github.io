@@ -15,10 +15,32 @@
       color: white;
       overflow: hidden;
       flex-direction: column;
+      position: relative;
+    }
+
+    .text-ana, .text-st {
+      position: absolute;
+      top: 20px;
+      width: 20%;
+      height: auto;
+      padding: 10px;
+      border-radius: 12px;
+      color: #111;
+    }
+
+    .text-ana {
+      left: 20px;
+      background-color: aliceblue;
+    }
+
+    .text-st {
+      right: 20px;
+      background-color: red;
     }
 
     .container {
       text-align: center;
+      z-index: 1;
     }
 
     .gift-box {
@@ -39,25 +61,7 @@
       top: 0;
       left: 0;
     }
-    .text-ana{
-      margin-left: -75%;
-      color: #111;
-      margin-top: -50%;
-      width: 20%;
-      margin-bottom: 30%;
-      height: 10%;
-      border-radius: 12px;
-      background-color: aliceblue;
-    }
-    .text-st {
-      margin: top -50% bottom 30% left 75%;
-      color:#111;
-      width: 20%;
-      height: 10%;
-      border-radius: 12px;
-      background-color: red;
-    }
-    
+
     .lid {
       z-index: 2;
       transition: transform 1s ease;
@@ -68,7 +72,6 @@
     }
 
     .code {
-      
       visibility: hidden;
       margin-top: 30px;
       font-size: 24px;
@@ -86,12 +89,13 @@
   </style>
 </head>
 <body>
-<div class="text-ana">
-  Felicidades alexis
-</div>
-<div class="text-st">
-  Feliciddes mongolin disfruta mucho del regalo y pasalo muy muy bien. Pd:El domingo habra festin
-</div>
+  <div class="text-ana">
+    Felicidades alexis
+  </div>
+  <div class="text-st">
+    Felicidades mongolín, disfruta mucho del regalo y pásalo muy muy bien. Pd: El domingo habrá festín.
+  </div>
+
   <div class="container">
     <h1>Haz clic para abrir tu regalo 🎮</h1>
     
@@ -102,7 +106,6 @@
       </div>    
     </div>
 
-    <!-- ✅ Mueve el código fuera del gift-box -->
     <div class="code" id="code">Código: <strong>CFJE-7DMA-AJT7</strong></div>
   </div>
 
@@ -118,10 +121,7 @@
         code.style.opacity = '1';
         code.style.visibility = 'visible';
 
-        // Opcional: eliminar transición y limpiar propiedad después
         setTimeout(() => {
-          code.style.transition = 'none';
-          code.style.opacity = '';
           code.style.removeProperty('opacity');
           code.style.removeProperty('visibility');
         }, 1000);
