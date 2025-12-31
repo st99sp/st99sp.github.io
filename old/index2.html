@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¡Sorpresa Festiva ALEXIS!</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0d0d0d;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      overflow: hidden;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .text-ana, .text-st {
+      position: absolute;
+      top: 20px;
+      width: 20%;
+      height: auto;
+      padding: 10px;
+      border-radius: 12px;
+      color: #111;
+    }
+
+    .text-ana {
+      left: 20px;
+      background-color: aliceblue;
+    }
+
+    .text-st {
+      right: 20px;
+      background-color: red;
+    }
+
+    .container {
+      text-align: center;
+      z-index: 1;
+    }
+
+    .gift-box {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+      cursor: pointer;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    .lid, .box {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, #2d2dff, #5f5fff);
+      border-radius: 15px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .lid {
+      z-index: 2;
+      transition: transform 1s ease;
+    }
+
+    .open .lid {
+      transform: rotateX(100deg) translateY(-100px);
+    }
+
+    .code {
+      visibility: hidden;
+      margin-top: 30px;
+      font-size: 24px;
+      background: #111;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: 2px solid #2d2dff;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="text-ana">
+    Felicidades dudu perez que lo disfrutes muchisimo, te lo mereces. Te queremos pequeñin. Firmada Anita Dinamita.
+  </div>
+  <div class="text-st">
+    Felicidades mongolín, disfruta mucho del regalo y pásalo muy muy bien. Pd: El domingo habrá festín. Llevate el bloste. Firmado Don GreekGod
+  </div>
+
+  <div class="container">
+    <h1>Haz clic para abrir tu regalo 🎮</h1>
+    
+    <div class="gift-box" id="giftBox">
+      <div class="lid"></div>
+      <div class="box">
+        <img src="https://cdn-icons-gif.flaticon.com/13374/13374046.gif" style="width: 100%; height: 100%; border-radius: 15px;">
+      </div>    
+    </div>
+
+    <div class="code" id="code">Código: <strong>CFJE-7DMA-AJT7</strong></div>
+  </div>
+
+  <script>
+    const giftBox = document.getElementById('giftBox');
+    const container = document.querySelector('.container');
+    const code = document.getElementById('code');
+
+    giftBox.addEventListener('click', () => {
+      container.classList.add('open');
+
+      setTimeout(() => {
+        code.style.opacity = '1';
+        code.style.visibility = 'visible';
+
+        setTimeout(() => {
+          code.style.removeProperty('opacity');
+          code.style.removeProperty('visibility');
+        }, 1000);
+      }, 1000);
+    });
+  </script>
+
+</body>
+</html>
