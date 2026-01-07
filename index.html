@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gymkana Digital - Encuentra el 8</title>
+    <title>🎮 Gymkana PSN - Desafío del Código</title>
     <style>
+        /* Todos los estilos previos se mantienen igual */
         * {
             margin: 0;
             padding: 0;
@@ -22,12 +23,24 @@
         }
 
         .container {
-            max-width: 800px;
-            width: 100%;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             padding: 40px;
+            max-width: 800px;
+            width: 100%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h1 {
@@ -35,6 +48,7 @@
             text-align: center;
             margin-bottom: 10px;
             font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .subtitle {
@@ -44,87 +58,108 @@
             font-size: 1.1em;
         }
 
-        .level {
-            display: none;
-            animation: fadeIn 0.5s;
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
         }
 
-        .level.active {
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .game-container {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .game-container.active {
             display: block;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .level-title {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
+        .game-title {
+            color: #764ba2;
+            font-size: 1.8em;
             margin-bottom: 20px;
             text-align: center;
-            font-size: 1.3em;
         }
 
-        .challenge {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 10px;
+        .game-description {
+            color: #555;
             margin-bottom: 20px;
-        }
-
-        input[type="text"], input[type="number"] {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            margin-top: 10px;
-            transition: border-color 0.3s;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #667eea;
+            text-align: center;
+            font-size: 1.1em;
         }
 
         button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 10px;
             cursor: pointer;
-            margin-top: 15px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 20px auto;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
         }
 
         .memory-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            margin-top: 20px;
+            max-width: 400px;
+            margin: 20px auto;
         }
 
         .memory-card {
             aspect-ratio: 1;
-            background: #667eea;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2em;
-            color: white;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .memory-card:hover {
@@ -133,297 +168,407 @@
 
         .memory-card.flipped {
             background: white;
-            border: 2px solid #667eea;
-            color: #667eea;
+            border: 3px solid #667eea;
         }
 
         .memory-card.matched {
             background: #4caf50;
-            cursor: default;
         }
 
         .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
         }
 
         .quiz-option {
             padding: 15px;
             background: white;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1.1em;
         }
 
         .quiz-option:hover {
-            border-color: #667eea;
+            background: #f0f4ff;
             transform: translateX(5px);
         }
 
-        .puzzle-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            margin-top: 20px;
-            max-width: 300px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .puzzle-piece {
-            aspect-ratio: 1;
-            background: #667eea;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
+        .quiz-option.correct {
+            background: #4caf50;
             color: white;
-            cursor: pointer;
-            transition: all 0.3s;
+            border-color: #4caf50;
         }
 
-        .puzzle-piece:hover {
-            transform: scale(1.1);
+        .quiz-option.wrong {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
         }
 
-        .puzzle-piece.empty {
-            background: transparent;
-            border: 2px dashed #ddd;
+        .code-display {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        .code-display h2 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 2em;
+        }
+
+        .code-text {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            letter-spacing: 3px;
+            margin: 20px 0;
+        }
+
+        .celebration {
+            text-align: center;
+            font-size: 4em;
+            margin: 20px 0;
         }
 
         .message {
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
             text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
             font-weight: bold;
         }
 
         .success {
             background: #d4edda;
             color: #155724;
+            border: 2px solid #c3e6cb;
         }
 
         .error {
             background: #f8d7da;
             color: #721c24;
+            border: 2px solid #f5c6cb;
         }
 
-        .final-reveal {
-            text-align: center;
-            padding: 40px;
-        }
-
-        .final-number {
-            font-size: 150px;
-            color: #667eea;
-            text-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
-            animation: bounce 1s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #e0e0e0;
-            border-radius: 5px;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.5s;
-        }
-
-        .code-input {
-            display: flex;
-            gap: 10px;
+        .simon-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 150px);
+            gap: 15px;
+            margin: 20px auto;
             justify-content: center;
-            margin-top: 20px;
         }
 
-        .code-digit {
-            width: 60px;
-            height: 60px;
+        .simon-button {
+            width: 150px;
+            height: 150px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 3px solid #333;
+        }
+
+        .simon-button.red { background: #e74c3c; }
+        .simon-button.blue { background: #3498db; }
+        .simon-button.green { background: #2ecc71; }
+        .simon-button.yellow { background: #f39c12; }
+
+        .simon-button.active {
+            filter: brightness(1.5);
+            transform: scale(1.1);
+        }
+
+        .timer {
+            font-size: 2em;
             text-align: center;
-            font-size: 24px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+            color: #667eea;
+            font-weight: bold;
+            margin: 20px 0;
         }
 
-        .hint {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px;
-            margin-top: 15px;
-            border-radius: 4px;
-            font-size: 0.9em;
+        .reaction-button {
+            font-size: 3em !important;
+            padding: 40px 60px !important;
+            background: linear-gradient(135deg, #00a8ff, #0097e6) !important;
+        }
+
+        .troll-message {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            color: white;
+            font-size: 1.3em;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .final-challenge {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            display: none; /* Oculto por defecto */
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .final-challenge.active {
+            display: block; /* Mostrado cuando tiene la clase active */
+        }
+
+        .final-challenge h3 {
+            color: white;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        /* Nuevo estilo para el botón de mostrar desafío final */
+        .show-final-challenge-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f) !important;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .show-final-challenge-btn:hover {
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Nuevo estilo para el botón de mostrar segundo código */
+        .show-second-code-btn {
+            background: linear-gradient(135deg, #2ecc71, #27ae60) !important;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .show-second-code-btn:hover {
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.6);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎯 Gymkana Digital</h1>
-        <p class="subtitle">Supera todos los desafíos para descubrir el número secreto</p>
+        <h1>🎮 GYMKANA PSN</h1>
+        <p class="subtitle">¡Supera los desafíos para conseguir tu código!</p>
         
         <div class="progress-bar">
-            <div class="progress-fill" id="progress"></div>
+            <div class="progress-fill" id="progress">0/5</div>
         </div>
 
-        <!-- Nivel 1: Adivinanza -->
-        <div class="level active" id="level1">
-            <div class="level-title">🧩 Nivel 1: La Adivinanza</div>
-            <div class="challenge">
-                <p><strong>Resuelve esta adivinanza:</strong></p>
-                <p style="margin-top: 15px; font-style: italic;">
-                    "Soy un símbolo infinito,<br>
-                    tumbado me verás,<br>
-                    si me pones de pie,<br>
-                    ¿qué número seré jamás?"
-                </p>
-                <input type="text" id="answer1" placeholder="Escribe tu respuesta...">
-                <button onclick="checkLevel1()">Comprobar</button>
-                <div id="message1"></div>
+        <!-- Juego 1: Acertijo Matemático -->
+        <div class="game-container active" id="game1">
+            <h2 class="game-title">🧮 Desafío 1: El Acertijo Matemático</h2>
+            <p class="game-description">Si PlayStation tiene 11 letras y Network tiene 7 letras, ¿cuántas letras tiene "tu código secreto"?</p>
+            <input type="number" id="math-answer" placeholder="Escribe el número">
+            <button onclick="checkMath()">Comprobar</button>
+            <div id="math-message"></div>
+        </div>
+
+        <!-- Juego 2: Memoria de Consolas -->
+        <div class="game-container" id="game2">
+            <h2 class="game-title">🎯 Desafío 2: Memoria Gamer</h2>
+            <p class="game-description">Encuentra las 4 parejas de iconos de PlayStation</p>
+            <div class="memory-grid" id="memory-grid"></div>
+            <div id="memory-message"></div>
+        </div>
+
+        <!-- Juego 3: Quiz Gaming -->
+        <div class="game-container" id="game3">
+            <h2 class="game-title">🎲 Desafío 3: Quiz Gaming</h2>
+            <p class="game-description" id="quiz-question"></p>
+            <div class="quiz-options" id="quiz-options"></div>
+            <div id="quiz-message"></div>
+        </div>
+
+        <!-- Juego 4: Simon Says -->
+        <div class="game-container" id="game4">
+            <h2 class="game-title">🔴 Desafío 4: Simon Gaming</h2>
+            <p class="game-description">Memoriza y repite la secuencia de colores</p>
+            <div class="timer" id="simon-level">Nivel: 1</div>
+            <div class="simon-grid" id="simon-grid">
+                <div class="simon-button red" data-color="red"></div>
+                <div class="simon-button blue" data-color="blue"></div>
+                <div class="simon-button green" data-color="green"></div>
+                <div class="simon-button yellow" data-color="yellow"></div>
+            </div>
+            <button onclick="startSimon()">Comenzar</button>
+            <div id="simon-message"></div>
+        </div>
+
+        <!-- Juego 5: Reacción -->
+        <div class="game-container" id="game5">
+            <h2 class="game-title">⚡ Desafío 5: Reflejos de Gamer</h2>
+            <p class="game-description">Cuando aparezca el botón ✕, ¡pulsa lo más rápido posible!</p>
+            <div class="timer" id="reaction-status">Prepárate...</div>
+            <div style="min-height: 200px; display: flex; align-items: center; justify-content: center;">
+                <button id="reaction-button" class="reaction-button" style="display: none;">✕</button>
+            </div>
+            <button onclick="startReaction()" id="start-reaction">Comenzar Prueba</button>
+            <div id="reaction-message"></div>
+        </div>
+
+        <!-- Pantalla de Broma -->
+        <div class="game-container" id="troll">
+            <div class="celebration">🎉😅🎮</div>
+            <h2 class="game-title">¡Enhorabuena!</h2>
+            <p class="game-description">Has completado todos los desafíos. Aquí está tu código PSN:</p>
+            <div class="code-display">
+                <h2>Tu Código PSN</h2>
+                <div class="code-text" id="fake-code">XXXX-XXXX-XXXX</div>
+            </div>
+            <div class="troll-message">
+                😂 ¡JAJAJA! ¿De verdad pensabas que era tan fácil?<br>
+                ¡Te queda un último paso! 🔥
+            </div>
+            <button class="show-final-challenge-btn" onclick="showFinalChallenge()" id="show-final-challenge-btn">
+                🔥 MOSTRAR DESAFÍO FINAL 🔥
+            </button>
+            <div class="final-challenge" id="final-challenge">
+                <h3>🔥 DESAFÍO FINAL DEFINITIVO 🔥</h3>
+                <p style="color: white; margin: 15px 0;">Para conseguir el código REAL, demuestra que eres un verdadero gamer...</p>
+                <p style="color: white; font-size: 1.2em; margin: 20px 0;">¿Cuál es el nombre completo del protagonista de God of War?</p>
+                <input type="text" id="final-answer" placeholder="Escribe la respuesta" style="margin: 15px 0;">
+                <button onclick="checkFinalAnswer()">Desbloquear Regalo Real</button>
+                <div id="final-message"></div>
             </div>
         </div>
 
-        <!-- Nivel 2: Juego de Memoria -->
-        <div class="level" id="level2">
-            <div class="level-title">🃏 Nivel 2: Memoria de Símbolos</div>
-            <div class="challenge">
-                <p><strong>Encuentra todas las parejas de símbolos:</strong></p>
-                <div class="memory-grid" id="memoryGrid"></div>
-                <div id="message2"></div>
+        <!-- Pantalla Final Real -->
+        <div class="game-container" id="victory">
+            <div class="celebration">🎉🎮🏆</div>
+            <h2 class="game-title">¡FELICIDADES DE VERDAD!</h2>
+            <p class="game-description">Ahora sí, aquí está tu código PSN:</p>
+            <div class="code-display">
+                <h2>Tu Código PSN</h2>
+                <div class="code-text" id="real-code">BTT5-96XR-3F8Q</div>
+                <p style="color: #764ba2; margin-top: 15px; font-size: 1.2em;">¡Disfruta tus juegos! 🎮✨</p>
             </div>
-        </div>
-
-        <!-- Nivel 3: Quiz de Cultura -->
-        <div class="level" id="level3">
-            <div class="level-title">🎓 Nivel 3: Cultura General</div>
-            <div class="challenge">
-                <p><strong>¿Cuántos planetas hay en el sistema solar?</strong></p>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkQuiz(7)">7 planetas</div>
-                    <div class="quiz-option" onclick="checkQuiz(8)">8 planetas</div>
-                    <div class="quiz-option" onclick="checkQuiz(9)">9 planetas</div>
-                    <div class="quiz-option" onclick="checkQuiz(10)">10 planetas</div>
+            <button class="show-second-code-btn" onclick="showSecondCode()" id="show-second-code-btn" style="display: none;">
+                Mostrar Segundo Código
+            </button>
+            <div id="second-code-display" style="display: none;">
+                <div class="code-display" style="background: linear-gradient(135deg, #2ecc71, #27ae60); margin-top: 20px;">
+                    <h2>Tu Segundo Código PSN</h2>
+                    <div class="code-text" id="second-code">ELCM-APKT-CCMR</div>
                 </div>
-                <div id="message3"></div>
-            </div>
-        </div>
-
-        <!-- Nivel 4: Puzzle Deslizante -->
-        <div class="level" id="level4">
-            <div class="level-title">🎮 Nivel 4: Puzzle Deslizante</div>
-            <div class="challenge">
-                <p><strong>Ordena los números del 1 al 8:</strong></p>
-                <div class="puzzle-grid" id="puzzleGrid"></div>
-                <button onclick="shufflePuzzle()">Mezclar de nuevo</button>
-                <div id="message4"></div>
-                <div class="hint">💡 Pista: Haz clic en las fichas adyacentes al espacio vacío para moverlas</div>
-            </div>
-        </div>
-
-        <!-- Nivel 5: Código Matemático -->
-        <div class="level" id="level5">
-            <div class="level-title">🔢 Nivel 5: Desafío Matemático</div>
-            <div class="challenge">
-                <p><strong>Resuelve estas operaciones y suma los resultados:</strong></p>
-                <div style="margin-top: 15px;">
-                    <p>1. 2 × 2 = <span style="color: #667eea;">?</span></p>
-                    <p>2. 15 ÷ 3 = <span style="color: #667eea;">?</span></p>
-                    <p>3. 10 - 7 = <span style="color: #667eea;">?</span></p>
-                </div>
-                <p style="margin-top: 15px;"><strong>Suma total de los resultados:</strong></p>
-                <input type="number" id="answer5" placeholder="¿Cuál es la suma?">
-                <button onclick="checkLevel5()">Comprobar</button>
-                <div id="message5"></div>
-            </div>
-        </div>
-
-        <!-- Nivel Final -->
-        <div class="level" id="levelFinal">
-            <div class="final-reveal">
-                <h2 style="color: #667eea; margin-bottom: 20px;">🎉 ¡FELICIDADES! 🎉</h2>
-                <p style="font-size: 1.2em; margin-bottom: 30px;">Has completado todos los desafíos</p>
-                <p style="font-size: 1.3em; margin-bottom: 20px;">El número secreto es:</p>
-                <div class="final-number">8</div>
-                <p style="margin-top: 30px; font-size: 1.1em; color: #666;">
-                    ¡Lo lograste! Cada desafío te llevaba hacia este número mágico.
-                </p>
-                <button onclick="location.reload()" style="margin-top: 30px;">🔄 Jugar de nuevo</button>
             </div>
         </div>
     </div>
 
     <script>
-        let currentLevel = 1;
-        const totalLevels = 5;
-        let memoryCards = [];
+        let currentGame = 1;
+        const totalGames = 5;
+
+        // CÓDIGOS MODIFICADOS (sin cantidades)
+        const CODIGO_PRIMERO = "ABCD-EFGH-IJKL";
+        const CODIGO_SEGUNDO = "WXYZ-1234-5678";
+
+        function updateProgress() {
+            const progress = document.getElementById('progress');
+            const percentage = ((currentGame - 1) / totalGames) * 100;
+            progress.style.width = percentage + '%';
+            progress.textContent = `${currentGame - 1}/${totalGames}`;
+        }
+
+        function nextGame() {
+            document.getElementById(`game${currentGame}`).classList.remove('active');
+            currentGame++;
+            updateProgress();
+            
+            if (currentGame <= totalGames) {
+                document.getElementById(`game${currentGame}`).classList.add('active');
+            } else {
+                showTroll();
+            }
+        }
+
+        function showTroll() {
+            document.getElementById('troll').classList.add('active');
+            document.getElementById('fake-code').textContent = CODIGO_PRIMERO;
+        }
+
+        // Función para mostrar el desafío final al hacer clic en el botón
+        function showFinalChallenge() {
+            // Ocultar el botón
+            document.getElementById('show-final-challenge-btn').style.display = 'none';
+            // Mostrar el desafío final con animación
+            document.getElementById('final-challenge').classList.add('active');
+        }
+
+        function showVictory() {
+            document.getElementById('troll').classList.remove('active');
+            document.getElementById('victory').classList.add('active');
+            document.getElementById('real-code').textContent = CODIGO_PRIMERO;
+            
+            // Mostrar botón para segundo código después de 3 segundos
+            setTimeout(() => {
+                document.getElementById('show-second-code-btn').style.display = 'block';
+            }, 3000);
+        }
+
+        function showSecondCode() {
+            document.getElementById('second-code-display').style.display = 'block';
+            document.getElementById('second-code').textContent = CODIGO_SEGUNDO;
+            document.getElementById('show-second-code-btn').style.display = 'none';
+            
+            // Mostrar mensaje de celebración
+            setTimeout(() => {
+                alert('🎉 ¡Has desbloqueado ambos códigos! ¡Disfruta de tus juegos! 🎮');
+            }, 500);
+        }
+
+        // JUEGO 1: Acertijo Matemático - MODIFICADO: cambiado de 16 a 15
+        function checkMath() {
+            const answer = document.getElementById('math-answer').value;
+            const message = document.getElementById('math-message');
+            
+            if (answer == 15) { // CAMBIADO: De 16 a 15
+                message.innerHTML = '<div class="message success">¡Correcto! 🎉</div>';
+                setTimeout(nextGame, 1500);
+            } else {
+                message.innerHTML = '<div class="message error">Incorrecto. Cuenta las letras de "tu código secreto"</div>';
+            }
+        }
+
+        // JUEGO 2: Memoria
+        const memoryIcons = ['🎮', '🎮', '🕹️', '🕹️', '👾', '👾', '🎯', '🎯'];
         let flippedCards = [];
         let matchedPairs = 0;
 
-        // Actualizar barra de progreso
-        function updateProgress() {
-            const progress = (currentLevel / totalLevels) * 100;
-            document.getElementById('progress').style.width = progress + '%';
-        }
-
-        // Nivel 1: Adivinanza
-        function checkLevel1() {
-            const answer = document.getElementById('answer1').value.toLowerCase().trim();
-            const messageDiv = document.getElementById('message1');
+        function initMemory() {
+            const grid = document.getElementById('memory-grid');
+            const shuffled = memoryIcons.sort(() => Math.random() - 0.5);
             
-            if (answer === '8' || answer === 'ocho' || answer === 'el 8' || answer === 'el ocho') {
-                messageDiv.innerHTML = '<div class="message success">¡Correcto! El infinito de pie es un 8</div>';
-                setTimeout(() => nextLevel(2), 1500);
-            } else {
-                messageDiv.innerHTML = '<div class="message error">Incorrecto. Piensa en el símbolo del infinito...</div>';
-            }
-        }
-
-        // Nivel 2: Juego de Memoria
-        function initMemoryGame() {
-            const symbols = ['🎵', '🎨', '🎭', '🎪', '⚡', '🌟', '🎯', '🎲'];
-            const cards = [...symbols, ...symbols];
-            cards.sort(() => Math.random() - 0.5);
-            
-            const grid = document.getElementById('memoryGrid');
-            grid.innerHTML = '';
-            memoryCards = [];
-            matchedPairs = 0;
-            
-            cards.forEach((symbol, index) => {
+            shuffled.forEach((icon, index) => {
                 const card = document.createElement('div');
                 card.className = 'memory-card';
-                card.dataset.symbol = symbol;
+                card.dataset.icon = icon;
                 card.dataset.index = index;
-                card.textContent = '?';
-                card.onclick = () => flipCard(card);
+                card.addEventListener('click', flipCard);
                 grid.appendChild(card);
-                memoryCards.push(card);
             });
         }
 
-        function flipCard(card) {
-            if (flippedCards.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) {
-                return;
-            }
+        function flipCard() {
+            if (flippedCards.length === 2 || this.classList.contains('flipped')) return;
             
-            card.classList.add('flipped');
-            card.textContent = card.dataset.symbol;
-            flippedCards.push(card);
-            
+            this.classList.add('flipped');
+            this.textContent = this.dataset.icon;
+            flippedCards.push(this);
+
             if (flippedCards.length === 2) {
                 setTimeout(checkMatch, 800);
             }
@@ -431,148 +576,231 @@
 
         function checkMatch() {
             const [card1, card2] = flippedCards;
-            const messageDiv = document.getElementById('message2');
-            
-            if (card1.dataset.symbol === card2.dataset.symbol) {
+
+            if (card1.dataset.icon === card2.dataset.icon) {
                 card1.classList.add('matched');
                 card2.classList.add('matched');
                 matchedPairs++;
-                
-                if (matchedPairs === 8) {
-                    messageDiv.innerHTML = '<div class="message success">¡Perfecto! Has encontrado todas las parejas</div>';
-                    setTimeout(() => nextLevel(3), 1500);
+
+                if (matchedPairs === 4) {
+                    document.getElementById('memory-message').innerHTML = 
+                        '<div class="message success">¡Perfecto! 🎉</div>';
+                    setTimeout(nextGame, 2000);
                 }
             } else {
                 card1.classList.remove('flipped');
                 card2.classList.remove('flipped');
-                card1.textContent = '?';
-                card2.textContent = '?';
+                card1.textContent = '';
+                card2.textContent = '';
             }
-            
+
             flippedCards = [];
         }
 
-        // Nivel 3: Quiz
-        function checkQuiz(answer) {
-            const messageDiv = document.getElementById('message3');
-            
-            if (answer === 8) {
-                messageDiv.innerHTML = '<div class="message success">¡Exacto! Son 8 planetas en el sistema solar</div>';
-                setTimeout(() => nextLevel(4), 1500);
-            } else {
-                messageDiv.innerHTML = '<div class="message error">Incorrecto. Recuerda que Plutón ya no es considerado planeta</div>';
+        // JUEGO 3: Quiz
+        const quizQuestions = [
+            {
+                question: "¿En qué año se lanzó la primera PlayStation?",
+                options: ["1994", "1995", "1996", "1997"],
+                correct: 0
+            },
+            {
+                question: "¿Cuál es la mascota original de PlayStation?",
+                options: ["Crash Bandicoot", "Spyro", "Ratchet", "Sackboy"],
+                correct: 0
+            },
+            {
+                question: "¿Cuántos botones tiene un DualShock (sin contar sticks)?",
+                options: ["12", "14", "16", "18"],
+                correct: 1
             }
-        }
+        ];
 
-        // Nivel 4: Puzzle Deslizante
-        let puzzleState = [];
-        let emptyIndex = 8;
+        let currentQuestion = 0;
 
-        function initPuzzle() {
-            puzzleState = [1, 2, 3, 4, 5, 6, 7, 8, 0];
-            shufflePuzzle();
-            renderPuzzle();
-        }
+        function loadQuiz() {
+            const q = quizQuestions[currentQuestion];
+            document.getElementById('quiz-question').textContent = q.question;
+            const optionsDiv = document.getElementById('quiz-options');
+            optionsDiv.innerHTML = '';
 
-        function shufflePuzzle() {
-            for (let i = 0; i < 100; i++) {
-                const validMoves = getValidMoves();
-                const randomMove = validMoves[Math.floor(Math.random() * validMoves.length)];
-                movePiece(randomMove);
-            }
-            renderPuzzle();
-        }
-
-        function getValidMoves() {
-            const moves = [];
-            const row = Math.floor(emptyIndex / 3);
-            const col = emptyIndex % 3;
-            
-            if (row > 0) moves.push(emptyIndex - 3);
-            if (row < 2) moves.push(emptyIndex + 3);
-            if (col > 0) moves.push(emptyIndex - 1);
-            if (col < 2) moves.push(emptyIndex + 1);
-            
-            return moves;
-        }
-
-        function movePiece(index) {
-            [puzzleState[index], puzzleState[emptyIndex]] = [puzzleState[emptyIndex], puzzleState[index]];
-            emptyIndex = index;
-        }
-
-        function renderPuzzle() {
-            const grid = document.getElementById('puzzleGrid');
-            grid.innerHTML = '';
-            
-            puzzleState.forEach((num, index) => {
-                const piece = document.createElement('div');
-                piece.className = num === 0 ? 'puzzle-piece empty' : 'puzzle-piece';
-                piece.textContent = num === 0 ? '' : num;
-                if (num !== 0 && getValidMoves().includes(index)) {
-                    piece.onclick = () => handlePuzzleClick(index);
-                }
-                grid.appendChild(piece);
+            q.options.forEach((option, index) => {
+                const div = document.createElement('div');
+                div.className = 'quiz-option';
+                div.textContent = option;
+                div.onclick = () => checkQuiz(index);
+                optionsDiv.appendChild(div);
             });
         }
 
-        function handlePuzzleClick(index) {
-            if (getValidMoves().includes(index)) {
-                movePiece(index);
-                renderPuzzle();
-                checkPuzzleSolved();
-            }
-        }
+        function checkQuiz(selected) {
+            const q = quizQuestions[currentQuestion];
+            const options = document.querySelectorAll('.quiz-option');
+            const message = document.getElementById('quiz-message');
 
-        function checkPuzzleSolved() {
-            const solved = puzzleState.every((num, index) => num === (index === 8 ? 0 : index + 1));
-            
-            if (solved) {
-                const messageDiv = document.getElementById('message4');
-                messageDiv.innerHTML = '<div class="message success">¡Increíble! Has ordenado el puzzle correctamente</div>';
-                setTimeout(() => nextLevel(5), 1500);
+            options[selected].classList.add(selected === q.correct ? 'correct' : 'wrong');
+            if (selected !== q.correct) {
+                options[q.correct].classList.add('correct');
             }
-        }
 
-        // Nivel 5: Matemáticas
-        function checkLevel5() {
-            const answer = parseInt(document.getElementById('answer5').value);
-            const messageDiv = document.getElementById('message5');
+            message.innerHTML = `<div class="message ${selected === q.correct ? 'success' : 'error'}">
+                ${selected === q.correct ? '¡Correcto! 🎮' : 'Incorrecto, pero sigues adelante'}
+            </div>`;
             
-            // 2×2=4, 15÷3=5, 10-7=3 → 4+5+3=12... pero queremos que llegue al 8
-            // Cambiemos: 2×2=4, 15÷3=5, 10-7=3... no, eso da 12
-            // Intentemos: 2+2=4, 10-5=5, 3-2=1... 4+5-1=8? No
-            // Mejor: las respuestas son 4, 5, 3 pero la pregunta es cual NO sumar?
-            // O hacer: 2×2=4, 6÷2=3, 2-1=1 → 4+3+1=8
-            
-            if (answer === 12) {
-                messageDiv.innerHTML = '<div class="message success">¡Perfecto! 4 + 5 + 3 = 12... ¡Pero espera! Hay 8 dígitos en la operación completa 😉</div>';
-                setTimeout(() => nextLevel(6), 2000);
-            } else if (answer === 8) {
-                messageDiv.innerHTML = '<div class="message success">¡Excelente! Has encontrado el número secreto en el desafío</div>';
-                setTimeout(() => nextLevel(6), 1500);
+            currentQuestion++;
+            if (currentQuestion < quizQuestions.length) {
+                setTimeout(loadQuiz, 2000);
             } else {
-                messageDiv.innerHTML = '<div class="message error">Incorrecto. Suma los tres resultados...</div>';
+                setTimeout(nextGame, 2000);
             }
         }
 
-        // Cambiar de nivel
-        function nextLevel(level) {
-            document.querySelectorAll('.level').forEach(l => l.classList.remove('active'));
-            currentLevel = level;
-            updateProgress();
+        // JUEGO 4: Simon
+        let simonSequence = [];
+        let playerSequence = [];
+        let simonLevel = 1;
+        let canPlay = false;
+
+        function startSimon() {
+            simonSequence = [];
+            playerSequence = [];
+            simonLevel = 1;
+            addSimonColor();
+        }
+
+        function addSimonColor() {
+            const colors = ['red', 'blue', 'green', 'yellow'];
+            simonSequence.push(colors[Math.floor(Math.random() * 4)]);
+            playSimonSequence();
+        }
+
+        function playSimonSequence() {
+            canPlay = false;
+            document.getElementById('simon-level').textContent = `Nivel: ${simonLevel}`;
             
-            if (level <= totalLevels) {
-                document.getElementById('level' + level).classList.add('active');
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < simonSequence.length) {
+                    flashSimonButton(simonSequence[i]);
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    canPlay = true;
+                }
+            }, 800);
+        }
+
+        function flashSimonButton(color) {
+            const button = document.querySelector(`[data-color="${color}"]`);
+            button.classList.add('active');
+            setTimeout(() => button.classList.remove('active'), 400);
+        }
+
+        document.querySelectorAll('.simon-button').forEach(button => {
+            button.addEventListener('click', function() {
+                if (!canPlay) return;
                 
-                if (level === 2) initMemoryGame();
-                if (level === 4) initPuzzle();
-            } else {
-                document.getElementById('levelFinal').classList.add('active');
+                const color = this.dataset.color;
+                flashSimonButton(color);
+                playerSequence.push(color);
+                checkSimonSequence();
+            });
+        });
+
+        function checkSimonSequence() {
+            const currentIndex = playerSequence.length - 1;
+            const message = document.getElementById('simon-message');
+
+            if (playerSequence[currentIndex] !== simonSequence[currentIndex]) {
+                message.innerHTML = '<div class="message error">Intenta de nuevo</div>';
+                setTimeout(startSimon, 1500);
+                return;
+            }
+
+            if (playerSequence.length === simonSequence.length) {
+                if (simonLevel >= 3) {
+                    message.innerHTML = '<div class="message success">¡Increíble! 🎉</div>';
+                    setTimeout(nextGame, 2000);
+                } else {
+                    simonLevel++;
+                    playerSequence = [];
+                    setTimeout(addSimonColor, 1000);
+                }
             }
         }
 
-        // Inicializar
+        // JUEGO 5: Reacción
+        let reactionTimeout;
+        let reactionStartTime;
+        let reactionAttempts = 0;
+        let bestTime = Infinity;
+
+        function startReaction() {
+            reactionAttempts = 0;
+            bestTime = Infinity;
+            document.getElementById('start-reaction').style.display = 'none';
+            document.getElementById('reaction-message').innerHTML = '';
+            nextReactionRound();
+        }
+
+        function nextReactionRound() {
+            const button = document.getElementById('reaction-button');
+            const status = document.getElementById('reaction-status');
+            
+            button.style.display = 'none';
+            status.textContent = 'Espera...';
+            status.style.color = '#f39c12';
+
+            const randomDelay = Math.random() * 3000 + 2000;
+
+            reactionTimeout = setTimeout(() => {
+                button.style.display = 'block';
+                status.textContent = '¡AHORA!';
+                status.style.color = '#2ecc71';
+                reactionStartTime = Date.now();
+            }, randomDelay);
+        }
+
+        document.getElementById('reaction-button').addEventListener('click', function() {
+            const reactionTime = Date.now() - reactionStartTime;
+            reactionAttempts++;
+            
+            if (reactionTime < bestTime) {
+                bestTime = reactionTime;
+            }
+
+            document.getElementById('reaction-status').textContent = `Tiempo: ${reactionTime}ms`;
+            
+            if (reactionAttempts < 3) {
+                setTimeout(() => {
+                    document.getElementById('reaction-message').innerHTML = 
+                        `<div class="message success">Intento ${reactionAttempts}/3 - Mejor: ${bestTime}ms</div>`;
+                    nextReactionRound();
+                }, 1500);
+            } else {
+                const message = document.getElementById('reaction-message');
+                let msg = bestTime < 500 ? '¡INCREÍBLE! 🏆' : bestTime < 700 ? '¡Excelente! 🎮' : '¡Bien hecho! ⚡';
+                message.innerHTML = `<div class="message success">${msg} Mejor tiempo: ${bestTime}ms</div>`;
+                setTimeout(nextGame, 2500);
+            }
+        });
+
+        // DESAFÍO FINAL
+        function checkFinalAnswer() {
+            const answer = document.getElementById('final-answer').value.toLowerCase().trim();
+            const message = document.getElementById('final-message');
+            
+            if (answer === 'kratos' || answer === 'kratos espartano') {
+                message.innerHTML = '<div class="message success" style="color: white; background: rgba(255,255,255,0.2);">¡CORRECTO! 🏆</div>';
+                setTimeout(showVictory, 1500);
+            } else {
+                message.innerHTML = '<div class="message error" style="color: white; background: rgba(255,255,255,0.2);">Incorrecto. Pista: Dios de la Guerra griego...</div>';
+            }
+        }
+
+        // Inicialización
+        initMemory();
+        loadQuiz();
         updateProgress();
     </script>
 </body>
